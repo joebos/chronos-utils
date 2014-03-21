@@ -1,2 +1,6 @@
-*.pyc
-
+successurls.json
+failedurls.json
+*.js~
+.idea
+*.out
+*.*~
