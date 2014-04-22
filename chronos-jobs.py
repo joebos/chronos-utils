@@ -6,6 +6,7 @@ import httplib
 import json
 import random
 import sys
+import urllib
 
 from lib.texttable import texttable
 
@@ -122,8 +123,11 @@ def main(args=None):
 
       jobs = json.loads(response)
       for job in jobs:
-        connection.request("DELETE", "/scheduler/job/%s" % job["name"])
-        connection.getresponse().read()
+        connection.request("DELETE", "/scheduler/job/%s" % urllib.quote(job["name"]))
+        #connection.request("DELETE", "/scheduler/task/kill/%s" % job["name"])
+        http_response = connection.getresponse()
+        response=http_response.read()
+        i=0
 
       connection.close()
       print "Deleted ALL jobs. The slate is all clean."
